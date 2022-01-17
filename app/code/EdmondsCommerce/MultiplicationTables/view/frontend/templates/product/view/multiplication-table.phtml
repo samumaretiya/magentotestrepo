@@ -1,0 +1,52 @@
+<?php
+/**
+ * EdmondsCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the www.edmondscommerce.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.edmondscommerce.com/license
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   EdmondsCommerce
+ * @package    EdmondsCommerce_MultiplicationTables
+ * @copyright  Copyright (c) 2022 EdmondsCommerce (http://www.edmondscommerce.com/)
+ * @license    http://www.edmondscommerce.com/LICENSE-1.0.html
+ */
+
+/**
+ * Product view template
+ *
+ * @var $block \EdmondsCommerce\MultiplicationTables\Block\Product\View\MultiplicationTab
+ */
+?>
+<?php
+$_product = $block->getProduct();
+
+if (!$_product instanceof \Magento\Catalog\Model\Product) {
+    return;
+}
+$isVisible = $block->isVisibleMultiplicationTable($_product);
+if($isVisible) :
+    $xAxis = (int) $_product->getXAxis();
+    $yAxis = (int) $_product->getYAxis();
+?>
+<div class="product attribute">
+    <div class="value">
+    	<table border="1">
+            <?php for ($r = 1; $r <= $yAxis; $r++) { ?>
+                <tr>
+                    <?php for ($c = 1; $c <= $xAxis; $c++) { ?>
+                        <td><?= ($c * $r) ?></td>
+                    <?php } ?>
+                </tr>
+            <?php } ?>
+  		</table>
+    </div>
+</div>
+<?php endif; ?>
